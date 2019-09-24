@@ -1,4 +1,9 @@
 #-----compute/main.tf#-----
+provider "aws" {
+  region     = "us-west-2"
+  access_key = "${var.my-access-key}"
+  secret_key = "${var.my-secret-key}"
+}
 
 data "aws_ami" "server_ami" {
   most_recent = true
@@ -21,13 +26,12 @@ resource "aws_instance" "tf_server" {
   instance_type = "${var.instance_type}"
   ami           = "${data.aws_ami.server_ami.id}"
 
-  tags {
+  tags = {
     Name = "tf_server-${count.index +1}"
   }
 
   key_name               = "${aws_key_pair.tf_auth.id}"
   vpc_security_group_ids = ["${var.security_group}"]
-  subnet_id              = "${element(var.subnets, count.index)}"
   
 }
 
