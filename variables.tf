@@ -5,9 +5,9 @@ variable "key_name" {}
 
 variable "public_key_path" {}
 
-variable "instance_count" {2}
+variable "instance_count" {}
 
-variable "instance_type" {t2.micro}
+variable "instance_type" {}
 
 variable "security_group" {}
 
